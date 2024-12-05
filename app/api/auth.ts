@@ -33,12 +33,40 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
   const hashedCode = md5.hash(accessCode ?? "").trim();
 
   const serverConfig = getServerSideConfig();
+
+  /// the following code is added by bccwuho
+  const MAX_MESSAGE_NUM = 3;
+
+let current_daily_message_count: Record<string, number> = {};
+const lastAccessDateKey = 'lastAccessDate';
+
+// Retrieve last access date from storage (could be a database or other storage mechanism)
+const lastAccessDate = localStorage.getItem(lastAccessDateKey);
+const today = new Date().toISOString().split('T')[0];
+
+if (lastAccessDate !== today) {
+  current_daily_message_count = {}; // Reset all counters if the date has changed
+  localStorage.setItem(lastAccessDateKey, today); // Update last access date
+}
+
+const incrementMessageCount = (accessCode: string) => {
+  if (!current_daily_message_count[accessCode]) {
+    current_daily_message_count[accessCode] = 0;
+  }
+  current_daily_message_count[accessCode] += 1;
+};
+
+incrementMessageCount(accessCode);
+/// end of code by bccwuho
+  
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   console.log("[Auth] got access code:", accessCode);
   console.log("[Auth] hashed access code:", hashedCode);
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
 
+  console.log("[Daily Message Count] for", accessCode, current_daily_message_count[accessCode]); /// by bccwuho
+ 
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
     return {
       error: true,
