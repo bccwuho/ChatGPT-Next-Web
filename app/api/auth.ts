@@ -63,8 +63,7 @@ incrementMessageCount(accessCode);
   console.log("[Auth] got access code:", accessCode);
   console.log("[Auth] hashed access code:", hashedCode);
   console.log("[User IP] ", getIP(req));
-  console.log("[Time] ", new Date().toLocaleString());
-
+  console.log("[Time===] ", new Date().toLocaleString());
   console.log("[Daily Message Count] for", accessCode, current_daily_message_count[accessCode]); /// by bccwuho
  
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
