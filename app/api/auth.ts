@@ -38,15 +38,13 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
   const MAX_MESSAGE_NUM = 3;
 
 let current_daily_message_count: Record<string, number> = {};
-const lastAccessDateKey = 'lastAccessDate';
+let lastAccessDate: string | null = null;
 
-// Retrieve last access date from storage (could be a database or other storage mechanism)
-const lastAccessDate = localStorage.getItem(lastAccessDateKey);
 const today = new Date().toISOString().split('T')[0];
 
 if (lastAccessDate !== today) {
   current_daily_message_count = {}; // Reset all counters if the date has changed
-  localStorage.setItem(lastAccessDateKey, today); // Update last access date
+  lastAccessDate = today; // Update last access date
 }
 
 const incrementMessageCount = (accessCode: string) => {
