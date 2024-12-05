@@ -24,6 +24,13 @@ function parseApiKey(bearToken: string) {
   };
 }
 
+/// the following code is added by bccwuho
+ const MAX_MESSAGE_NUM = 3;
+
+let current_daily_message_count: Record<string, number> = {};
+let lastAccessDate: string | null = null;
+///end of bccuho
+
 export function auth(req: NextRequest, modelProvider: ModelProvider) {
   const authToken = req.headers.get("Authorization") ?? "";
 
@@ -35,11 +42,6 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
   const serverConfig = getServerSideConfig();
 
   /// the following code is added by bccwuho
-  const MAX_MESSAGE_NUM = 3;
-
-let current_daily_message_count: Record<string, number> = {};
-let lastAccessDate: string | null = null;
-
 const today = new Date().toISOString().split('T')[0];
 
 if (lastAccessDate !== today) {
