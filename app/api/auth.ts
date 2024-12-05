@@ -63,8 +63,11 @@ incrementMessageCount(accessCode);
   console.log("[Auth] got access code:", accessCode);
   console.log("[Auth] hashed access code:", hashedCode);
   console.log("[User IP] ", getIP(req));
-  console.log("[Time===] ", new Date().toLocaleString());
+  console.log("[Time=] ", new Date().toLocaleString());
   console.log("[Daily Message Count] for", accessCode, current_daily_message_count[accessCode]); /// by bccwuho
+  console.log("[Debug] Current Daily Message Count Object:", current_daily_message_count);
+  console.log("[Debug] Last Access Date:", lastAccessDate);
+  console.log("[Debug] Today:", today);
  
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
     return {
