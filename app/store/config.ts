@@ -57,7 +57,7 @@ export const DEFAULT_CONFIG = {
 
   disablePromptHint: false,
 
-  dontShowMaskSplashScreen: false, // dont show splash screen when create chat
+  dontShowMaskSplashScreen: true, // dont show splash screen when create chat /// by bccwuho
   hideBuiltinMasks: false, // dont add builtin masks
 
   customModels: "",
@@ -71,8 +71,8 @@ export const DEFAULT_CONFIG = {
     max_tokens: 4000,
     presence_penalty: 0,
     frequency_penalty: 0,
-    sendMemory: false,
-    historyMessageCount: 64,
+    sendMemory: false,           /// by bccwuho
+    historyMessageCount: 64,     /// by bccwuho
     compressMessageLengthThreshold: 1000,
     compressModel: "",
     compressProviderName: "",
