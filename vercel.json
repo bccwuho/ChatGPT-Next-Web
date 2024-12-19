@@ -2,4 +2,9 @@
     "github": {
         "silent": true
     }
+    "functions": {
+        "app/**/*.js": {
+          "maxDuration": 60
+        }
+    }
 }
